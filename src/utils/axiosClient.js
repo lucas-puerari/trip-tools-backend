@@ -1,9 +1,9 @@
 const axios = require('axios');
 
 const args = {
-    headers: {
-        'Content-Type': 'application/json',
-    },
+  headers: {
+    'Content-Type': 'application/json',
+  },
 };
 
 const axiosClient = axios.create(args);
