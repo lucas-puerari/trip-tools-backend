@@ -16,7 +16,7 @@ httpClient.interceptors.request.use(
   (error) => Promise.reject(error),
 );
 
-// Calculate the duration of the request
+// Compute the duration of the request
 httpClient.interceptors.response.use(
   (response) => ({
     ...response,
