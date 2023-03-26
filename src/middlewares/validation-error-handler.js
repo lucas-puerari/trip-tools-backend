@@ -1,5 +1,7 @@
 import { ValidationError } from 'express-json-validator-middleware';
 
+import logger from '../utils/logger';
+
 const validationErrorHandler = (error, request, response, next) => {
   if (response.headersSent) {
     return next(error);
@@ -10,6 +12,7 @@ const validationErrorHandler = (error, request, response, next) => {
     return next(error);
   }
 
+  logger.debug(error.validationErrors);
   response.status(400).json({
     errors: error.validationErrors,
   });
