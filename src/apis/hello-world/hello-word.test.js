@@ -1,6 +1,7 @@
 import app from '../../app';
+import logger from '../../utils/logger';
 
-import httpClient from '../../utils/axios-client';
+import httpClient from '../../utils/http-client';
 
 const endpoint = '/hello-world';
 
@@ -14,7 +15,7 @@ describe(`GET ${endpoint}`, () => {
 
   beforeAll(() => {
     server = app.listen(port, host, () => {
-      console.log(`Backend runinng on: ${baseUrl}`);
+      logger.info(`Backend runinng on: ${baseUrl}`);
     });
   });
 
