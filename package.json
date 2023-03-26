@@ -6,6 +6,7 @@
   "type": "module",
   "scripts": {
     "test": "jest",
+    "coverage": "jest --coverage",
     "lint": "eslint src/**",
     "lint:fix": "eslint src/** --fix",
     "prepare": "husky install",
