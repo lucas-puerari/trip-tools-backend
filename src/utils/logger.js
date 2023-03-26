@@ -1,5 +1,8 @@
 import pino from 'pino';
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 export default pino({
-  level: process.env.PINO_LOG_LEVEL || 'debug',
+  level: process.env.LOG_LEVEL || 'info',
 });
