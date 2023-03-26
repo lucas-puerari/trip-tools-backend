@@ -1,4 +1,4 @@
-const app = require('./app');
+import app from './app';
 
 const host = app.get('host');
 const port = app.get('port');

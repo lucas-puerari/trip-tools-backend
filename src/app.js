@@ -1,8 +1,10 @@
-const express = require('express');
+import express from 'express';
+import dotenv from 'dotenv';
 
-const helloWorld = require('./apis/helloWorld');
+import validationErrorHandler from './middlewares/validation-error-handler';
+import helloWorld from './apis/hello-world';
 
-require('dotenv').config();
+dotenv.config();
 
 const host = process.env.BACKEND_HOST;
 const port = process.env.BACKEND_PORT;
@@ -13,9 +15,10 @@ const app = express();
 app.set('host', host);
 app.set('port', port);
 
-// Middlewares
-
 // Routes
 app.use('/hello-world', helloWorld);
 
-module.exports = app;
+// Middlewares
+app.use(validationErrorHandler);
+
+export default app;
