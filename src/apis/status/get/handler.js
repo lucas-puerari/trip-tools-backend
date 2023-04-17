@@ -8,8 +8,8 @@ router.get('/', async (request, response) => {
   const dbStatus = mongoose.STATES[mongoose.connection.readyState];
 
   response.send({
-    serverStatus: `running`,
-    dbStatus: dbStatus,
+    serverStatus: 'Running',
+    dbStatus,
   });
 });
 
