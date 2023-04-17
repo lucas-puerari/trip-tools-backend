@@ -1,8 +1,11 @@
 import express from 'express';
 import dotenv from 'dotenv';
 
-import validationErrorHandler from './middlewares/validation-error-handler';
-import helloWorld from './apis/hello-world';
+import validationErrorMiddleware from './middlewares/validation-error';
+import dbConnectionMiddleware from './middlewares/db-connection';
+
+import helloWorldRoute from './apis/hello-world';
+import statusRoute from './apis/status';
 
 dotenv.config();
 
@@ -15,10 +18,14 @@ const app = express();
 app.set('host', host);
 app.set('port', port);
 
-// Routes
-app.use('/hello-world', helloWorld);
+// Pre-request Middlewares
+app.use(dbConnectionMiddleware);
 
-// Middlewares
-app.use(validationErrorHandler);
+// Routes
+app.use('/hello-world', helloWorldRoute);
+app.use('/status', statusRoute);
+
+// Post-request Middlewares
+app.use(validationErrorMiddleware);
 
 export default app;
