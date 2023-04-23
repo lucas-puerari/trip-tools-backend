@@ -1,9 +1,9 @@
 import app from './app';
 import logger from './utils/logger';
 
-const host = app.get('host');
-const port = app.get('port');
+const host = process.env.TT_BACKEND_HOST;
+const port = process.env.TT_BACKEND_PORT;
 
 app.listen(port, host, () => {
-  logger.info(`Backend runinng on: http://${host}:${port}`);
+  logger.info(`Backend running on: http://${host}:${port}`);
 });

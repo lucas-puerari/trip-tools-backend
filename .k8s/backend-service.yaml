@@ -1,14 +1,14 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: server
+  name: backend
   labels:
-    service: server
+    service: backend
 spec:
   selector:
-    app: server
+    app: backend
   ports:
-    - name: server
+    - name: backend
       protocol: TCP
       port: 3000
       targetPort: 3000

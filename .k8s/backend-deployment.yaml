@@ -1,19 +1,19 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: server
+  name: backend
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: server
+      app: backend
   template:
     metadata:
       labels:
-        app: server
+        app: backend
     spec:
       containers:
-        - name: server
+        - name: backend
           image: trip-tools-backend
           imagePullPolicy: Always
           ports:
