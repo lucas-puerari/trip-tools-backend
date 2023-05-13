@@ -10,58 +10,48 @@ const args = {
 
 const httpClient = axios.create(args);
 
-// Add startTime to the request
-httpClient.interceptors.request.use(
-  (request) => ({ ...request, metadata: { startTime: new Date() } }),
-  (error) => Promise.reject(error),
-);
+httpClient.interceptors.request.use((request) => {
+  logger.debug(`httpClient ${request.method.toUpperCase()} ${request.url}`);
 
-// Compute the duration of the request
-httpClient.interceptors.response.use(
-  (response) => ({
-    ...response,
+  return Promise.resolve({
+    ...request,
     metadata: {
-      duration: new Date() - new Date(response.config.metadata.startTime),
+      startTime: new Date(),
     },
-  }),
-  (error) => ({
-    ...error,
-    metadata: {
-      duration: new Date() - new Date(error.config.metadata.startTime),
-    },
-  }),
-);
+  });
+});
 
-// Log the request
-httpClient.interceptors.request.use(
-  (request) => {
-    logger.debug(`httpClient ${request.method.toUpperCase()} ${request.url}`);
-    return request;
-  },
-  (error) => Promise.reject(error),
-);
-
-// Log the response
 httpClient.interceptors.response.use(
   (response) => {
+    const duration = new Date() - new Date(response.config.metadata.startTime);
+
     logger.debug(
       `httpClient \
 ${response.config.method.toUpperCase()} \
 ${response.config.url} \
-${response.status || response.response.status} \
-(${response.metadata.duration} ms)`,
+${response.status} \
+(${duration} ms)`,
     );
-    return response;
+
+    return Promise.resolve({
+      ...response,
+      metadata: {
+        duration,
+      },
+    });
   },
   (error) => {
+    const duration = new Date() - new Date(error.config.metadata.startTime);
+
     logger.debug(
       `httpClient \
 ${error.config.method.toUpperCase()} \
 ${error.config.url} \
-${error.status} \
-(${error.metadata.duration} ms)`,
+${error.response.status} \
+(${duration} ms)`,
     );
-    return error;
+
+    return Promise.reject(error);
   },
 );
 

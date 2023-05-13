@@ -1,16 +1,12 @@
-import express from 'express';
+const getHandler = async (request, response) => {
+  const { dbClient } = request;
 
-const router = express.Router();
+  const dbStatus = dbClient.STATES[dbClient.connection.readyState];
 
-router.get('/', async (request, response) => {
-  const { mongoose } = request;
-
-  const dbStatus = mongoose.STATES[mongoose.connection.readyState];
-
-  response.send({
-    serverStatus: 'Running',
+  return response.status(200).json({
+    serverStatus: 'running',
     dbStatus,
   });
-});
+};
 
-export default router;
+export default getHandler;
