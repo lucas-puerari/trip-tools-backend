@@ -7,7 +7,7 @@
   "scripts": {
     "test": "jest --verbose --detectOpenHandles",
     "test:watch": "jest --verbose --watch",
-    "coverage": "jest --verbose --coverage && open ./coverage/lcov-report/index.html",
+    "coverage": "jest --verbose --coverage",
     "lint": "eslint src/**",
     "lint:fix": "eslint src/** --fix",
     "prepare": "husky install",
