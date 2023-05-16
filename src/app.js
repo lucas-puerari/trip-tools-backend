@@ -1,6 +1,5 @@
 import express from 'express';
 import dotenv from 'dotenv';
-// import morgan from 'morgan';
 
 import loggerMiddleware from './middlewares/logger';
 import dbConnectionMiddleware from './middlewares/db-connection';
@@ -17,7 +16,6 @@ app.set('port', process.env.TT_BACKEND_PORT);
 
 // Pre-request Middlewares
 app.use(express.json());
-// app.use(morgan('dev'));
 app.use(loggerMiddleware);
 app.use(dbConnectionMiddleware);
 
