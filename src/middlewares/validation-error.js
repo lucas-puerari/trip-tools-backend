@@ -1,8 +1,8 @@
 import { ValidationError } from 'express-json-validator-middleware';
 
-import logger from '../utils/logger';
+const validationErrorMiddleware = (error, request, response, next) => {
+  const { logger } = request;
 
-const validationErrorMiddleware = (error, _, response, next) => {
   if (response.headersSent) {
     return next(error);
   }

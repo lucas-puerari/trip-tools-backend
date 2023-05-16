@@ -7,7 +7,7 @@ const mockCreate = jest.fn();
 const mockFindByIdAndDelete = jest.fn();
 const mockFindByIdAndUpdate = jest.fn();
 
-jest.mock('../../utils/db-client', () => ({
+jest.mock('../../utils/db-client', () => () => ({
   model: () => ({
     find: mockFind,
     findById: mockFindById,

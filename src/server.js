@@ -1,8 +1,13 @@
-import app from './app';
-import logger from './utils/logger';
+import pino from 'pino';
 
-const host = app.get('host');
-const port = app.get('port');
+import app from './app';
+
+const host = process.env.TT_BACKEND_HOST;
+const port = process.env.TT_BACKEND_PORT;
+
+const logger = pino({
+  level: process.env.TT_LOG_LEVEL,
+});
 
 app.listen(port, host, () => {
   logger.info(`Backend running on: http://${host}:${port}`);
