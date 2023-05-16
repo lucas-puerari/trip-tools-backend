@@ -22,10 +22,10 @@ describe('Server status', () => {
   describe(`GET ${endpoint}`, () => {
     test.each([
       { dbState: 0, testDescription: `but ${mockDbClient.STATES[0]} from db` },
-      { dbState: 1, testDescription: `${mockDbClient.STATES[1]} to db` },
-      { dbState: 2, testDescription: `${mockDbClient.STATES[2]} to db` },
-      { dbState: 3, testDescription: `${mockDbClient.STATES[3]} from db` },
-    ])('200 - Server running and $testDescription', async ({ dbState }) => {
+      { dbState: 1, testDescription: `and ${mockDbClient.STATES[1]} to db` },
+      { dbState: 2, testDescription: `and ${mockDbClient.STATES[2]} to db` },
+      { dbState: 3, testDescription: `but ${mockDbClient.STATES[3]} from db` },
+    ])('200 - Server running $testDescription', async ({ dbState }) => {
       mockDbClient.connection.readyState = dbState;
 
       const response = await httpClient.get(endpoint);
