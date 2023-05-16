@@ -1,7 +1,6 @@
-import testSetup from '../../tests/setup';
-import dbClient from '../../utils/db-client';
+import setupTests from '../../tests/setup';
 
-jest.mock('../../utils/db-client', () => ({
+const mockDbClient = {
   STATES: {
     0: 'disconnected',
     1: 'connected',
@@ -11,28 +10,30 @@ jest.mock('../../utils/db-client', () => ({
   connection: {
     readyState: 0,
   },
-}));
+};
+
+jest.mock('../../utils/db-client', () => () => mockDbClient);
 
 describe('Server status', () => {
-  const { httpClient } = testSetup();
-
   const endpoint = '/status';
+
+  const { httpClient } = setupTests();
 
   describe(`GET ${endpoint}`, () => {
     test.each([
-      { dbState: 0, testDescription: `but ${dbClient.STATES[0]} from db` },
-      { dbState: 1, testDescription: `${dbClient.STATES[1]} to db` },
-      { dbState: 2, testDescription: `${dbClient.STATES[2]} to db` },
-      { dbState: 3, testDescription: `${dbClient.STATES[3]} from db` },
+      { dbState: 0, testDescription: `but ${mockDbClient.STATES[0]} from db` },
+      { dbState: 1, testDescription: `${mockDbClient.STATES[1]} to db` },
+      { dbState: 2, testDescription: `${mockDbClient.STATES[2]} to db` },
+      { dbState: 3, testDescription: `${mockDbClient.STATES[3]} from db` },
     ])('200 - Server running and $testDescription', async ({ dbState }) => {
-      dbClient.connection.readyState = dbState;
+      mockDbClient.connection.readyState = dbState;
 
       const response = await httpClient.get(endpoint);
 
       expect(response.status).toEqual(200);
       expect(response.data).toEqual({
         serverStatus: 'running',
-        dbStatus: dbClient.STATES[dbState],
+        dbStatus: mockDbClient.STATES[dbState],
       });
     });
   });
