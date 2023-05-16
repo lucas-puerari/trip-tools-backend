@@ -7,7 +7,6 @@ import dbConnectionMiddleware from './middlewares/db-connection';
 import validationErrorMiddleware from './middlewares/validation-error';
 
 import statusRoute from './apis/status';
-import usersRoute from './apis/users';
 
 const app = express();
 
@@ -24,7 +23,6 @@ app.use(dbConnectionMiddleware);
 
 // Routes
 app.use('/status', statusRoute);
-app.use('/users', usersRoute);
 
 // Post-request Middlewares
 app.use(validationErrorMiddleware);
