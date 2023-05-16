@@ -30,10 +30,10 @@ const setupHttpClient = (config, logger) => {
 
       logger.debug(
         `httpClient \
-  ${response.config.method.toUpperCase()} \
-  ${response.config.url} \
-  ${response.status} \
-  (${duration} ms)`,
+${response.config.method.toUpperCase()} \
+${response.config.url} \
+${response.status} \
+(${duration} ms)`,
       );
 
       return Promise.resolve({
@@ -48,10 +48,10 @@ const setupHttpClient = (config, logger) => {
 
       logger.debug(
         `httpClient \
-  ${error.config.method.toUpperCase()} \
-  ${error.config.url} \
-  ${error.response.status} \
-  (${duration} ms)`,
+${error.config.method.toUpperCase()} \
+${error.config.url} \
+${error.response.status} \
+(${duration} ms)`,
       );
 
       return Promise.reject(error);

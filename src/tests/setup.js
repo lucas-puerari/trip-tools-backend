@@ -32,7 +32,7 @@ const setupTests = () => {
     jest.clearAllMocks();
   });
 
-  const logger = pino({ level: 'debug' });
+  const logger = pino({ level: process.env.TT_LOG_LEVEL });
   const httpClient = setupHttpClient({ host, port }, logger);
 
   return { httpClient };

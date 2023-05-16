@@ -15,9 +15,9 @@ const mockDbClient = {
 jest.mock('../../utils/db-client', () => () => mockDbClient);
 
 describe('Server status', () => {
-  const endpoint = '/status';
-
   const { httpClient } = setupTests();
+
+  const endpoint = '/status';
 
   describe(`GET ${endpoint}`, () => {
     test.each([
