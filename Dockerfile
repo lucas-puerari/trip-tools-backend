@@ -10,7 +10,4 @@ COPY ./.env /app/.env
 
 WORKDIR /app/src
 
-ENV ENVIRONMENT local
-ENV NODE_ENV local
-
 CMD ["npm", "start"]
